@@ -1,0 +1,37 @@
+services:
+  bloglist-backend:
+    image: back-prod
+    environment:
+      - MONGODB_URI=mongodb://the_username:the_password@mongo:27017/the_database
+    depends_on:
+      - mongo
+    container_name: backend-prod
+
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: the_username
+      MONGO_INITDB_ROOT_PASSWORD: the_password
+      MONGO_INITDB_DATABASE: the_database
+    volumes: 
+      - ./blogilista/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./mongo_data:/data/db
+    container_name: mongo-prod
+
+  bloglist-frontend:
+    image: front-prod
+    container_name: frontend-prod
+
+  nginx:
+    image: nginx:1.20.1
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.prod.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - bloglist-frontend
+      - bloglist-backend
+    container_name: nginx-prod
+
+volumes:
+  mongo_data:

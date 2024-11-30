@@ -1,0 +1,27 @@
+### Add a new todo
+POST http://localhost:3000/todos
+Content-Type: application/json
+
+{
+  "text": "Sample todo2",
+  "done": false
+}
+
+### Check the statistics
+GET http://localhost:3000/statistics
+
+### Get all todos
+GET http://localhost:3000/todos
+
+
+### Update a todo
+PUT http://localhost:3000/todos/673da7d3c3e11187f659139f
+Content-Type: application/json
+
+{
+  "text": "Learn about containers",
+  "done": false
+}
+
+### Get a todo
+GET http://localhost:3000/todos/673da7d3c3e11187f659139f

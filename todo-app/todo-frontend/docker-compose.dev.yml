@@ -1,0 +1,13 @@
+services:
+  app:
+    image: front-dev
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - 5173:5173
+    container_name: front-dev
+    environment:
+      - VITE_BACKEND_URL=http://localhost:3000
